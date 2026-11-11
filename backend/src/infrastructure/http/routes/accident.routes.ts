@@ -17,3 +17,4 @@ export function createAccidentRouter(accidentController: AccidentController, tok
 
   return router;
 }
+

@@ -31,3 +31,4 @@ CREATE TABLE IF NOT EXISTS accidents (
 CREATE INDEX IF NOT EXISTS idx_accidents_user_id ON accidents(user_id);
 CREATE INDEX IF NOT EXISTS idx_accidents_status ON accidents(status);
 CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
+

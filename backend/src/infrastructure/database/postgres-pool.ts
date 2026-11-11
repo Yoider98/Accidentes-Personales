@@ -20,3 +20,4 @@ export const pool = new Pool({
 pool.on('error', (err) => {
   console.error('Error inesperado en cliente inactivo de PostgreSQL:', err);
 });
+

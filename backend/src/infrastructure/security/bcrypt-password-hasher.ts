@@ -12,3 +12,4 @@ export class BcryptPasswordHasher implements PasswordHasherPort {
     return bcrypt.compare(password, hash);
   }
 }
+

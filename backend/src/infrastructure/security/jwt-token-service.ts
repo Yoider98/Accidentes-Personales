@@ -1,20 +1,22 @@
-import jwt from 'jsonwebtoken';
+import jwt, { type SignOptions } from 'jsonwebtoken';
 import { TokenPayload, TokenServicePort } from '../../application/ports/token-service.port.js';
 import { ValidationException } from '../../domain/exceptions/domain.exception.js';
 
 export class JwtTokenService implements TokenServicePort {
   private readonly secret: string;
-  private readonly expiresIn: string;
+  private readonly expiresIn: SignOptions['expiresIn'];
 
   constructor() {
     this.secret = process.env.JWT_SECRET || 'dev_fallback_secret_must_be_changed_in_prod';
-    this.expiresIn = process.env.JWT_EXPIRES_IN || '24h';
+    this.expiresIn = (process.env.JWT_EXPIRES_IN || '24h') as SignOptions['expiresIn'];
   }
 
   generateToken(payload: TokenPayload): string {
-    return jwt.sign(payload, this.secret, {
-      expiresIn: this.expiresIn
-    });
+    const options: SignOptions = {};
+    if (this.expiresIn) {
+      options.expiresIn = this.expiresIn;
+    }
+    return jwt.sign(payload, this.secret, options);
   }
 
   verifyToken(token: string): TokenPayload {
@@ -32,3 +34,4 @@ export class JwtTokenService implements TokenServicePort {
     }
   }
 }
+

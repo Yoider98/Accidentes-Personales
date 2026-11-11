@@ -2,6 +2,7 @@
   "name": "accidentes-personales-backend",
   "version": "1.0.0",
   "description": "Backend de la Plataforma de Accidentes Personales en Arquitectura Hexagonal",
+  "type": "module",
   "main": "dist/infrastructure/http/server.js",
   "scripts": {
     "build": "tsc",

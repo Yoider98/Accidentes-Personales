@@ -7,7 +7,7 @@ import { UpdateAccidentStatusUseCase } from '../../../application/use-cases/upda
 import { AuthenticatedRequest } from '../middlewares/auth.middleware.js';
 
 const registerAccidentSchema = z.object({
-  affectedName: z.string().min(2, 'El nombre del afectado debe tener al menos 2 caracteres'),
+  affectedName: z.string().min(3, 'El nombre del afectado debe tener al menos 3 caracteres'),
   affectedPhone: z.string().min(7, 'El teléfono de contacto debe tener al menos 7 caracteres'),
   accidentType: z.string().min(2, 'El tipo de accidente es obligatorio'),
   accidentDate: z.string().refine((val) => !isNaN(Date.parse(val)), {
@@ -29,7 +29,7 @@ export class AccidentController {
     private readonly listUserAccidentsUseCase: ListUserAccidentsUseCase,
     private readonly getAccidentDetailUseCase: GetAccidentDetailUseCase,
     private readonly updateAccidentStatusUseCase: UpdateAccidentStatusUseCase
-  ) {}
+  ) { }
 
   public create = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
@@ -78,3 +78,4 @@ export class AccidentController {
     }
   };
 }
+

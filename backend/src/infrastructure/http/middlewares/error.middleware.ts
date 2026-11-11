@@ -84,3 +84,4 @@ export function errorHandler(err: any, req: Request, res: Response, next: NextFu
     message: 'Ocurrió un error inesperado al procesar su solicitud. Intente nuevamente más tarde.'
   });
 }
+

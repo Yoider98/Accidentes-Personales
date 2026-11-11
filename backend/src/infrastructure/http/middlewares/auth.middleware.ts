@@ -37,3 +37,4 @@ export function createAuthMiddleware(tokenService: TokenServicePort) {
     }
   };
 }
+
