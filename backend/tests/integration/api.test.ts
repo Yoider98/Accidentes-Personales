@@ -4,6 +4,7 @@ import { UserRepositoryPort } from '../../src/application/ports/user.repository.
 import { AccidentRepositoryPort } from '../../src/application/ports/accident.repository.port.js';
 import { PasswordHasherPort } from '../../src/application/ports/password-hasher.port.js';
 import { TokenServicePort, TokenPayload } from '../../src/application/ports/token-service.port.js';
+import { IdGeneratorPort } from '../../src/application/ports/id-generator.port.js';
 import { User } from '../../src/domain/entities/user.entity.js';
 import { Accident } from '../../src/domain/entities/accident.entity.js';
 import { Server } from 'node:http';
@@ -73,6 +74,13 @@ class MockTokenService implements TokenServicePort {
   }
 }
 
+class MockIdGenerator implements IdGeneratorPort {
+  private seq = 1000;
+  generate(): string {
+    return `test-id-${this.seq++}`;
+  }
+}
+
 describe('Pruebas de Integración HTTP y Validación de Requerimientos Obligatorios', () => {
   let server: Server;
   let baseUrl: string;
@@ -86,7 +94,8 @@ describe('Pruebas de Integración HTTP y Validación de Requerimientos Obligator
       userRepository: userRepo,
       accidentRepository: accidentRepo,
       passwordHasher: new MockPasswordHasher(),
-      tokenService: new MockTokenService()
+      tokenService: new MockTokenService(),
+      idGenerator: new MockIdGenerator()
     });
 
     await new Promise<void>((resolve) => {
@@ -142,8 +151,8 @@ describe('Pruebas de Integración HTTP y Validación de Requerimientos Obligator
     expect(body.error).toBe('No autorizado');
   });
 
-  // Requerimiento 10.3: Consultar un accidente de otro usuario alterando el identificador (CRÍTICO IDOR)
-  it('10.3 [CRÍTICO IDOR]: Debe impedir que un usuario consulte el accidente de otro alterando el ID (403)', async () => {
+  // Requerimiento 10.3: Consultar un accidente de otro usuario alterando el identificador (CRÍTICO ANTI-IDOR / NO ENUMERACIÓN)
+  it('10.3 [CRÍTICO ANTI-IDOR Y NO ENUMERACIÓN]: Debe responder 404 si un usuario intenta consultar el accidente de otro alterando el ID', async () => {
     // 1. Crear Usuario A y registrar un accidente
     const regA = await fetch(`${baseUrl}/api/auth/register`, {
       method: 'POST',
@@ -186,16 +195,17 @@ describe('Pruebas de Integración HTTP y Validación de Requerimientos Obligator
     });
     const tokenB = (await regB.json() as any).token;
 
-    // 3. Usuario B intenta leer el accidente del Usuario A alterando el ID en la URL
+    // 3. Usuario B intenta leer el accidente del Usuario A alterando el ID en la URL.
+    // Devuelve 404 (Not Found) para no confirmar existencia de registros de otros usuarios (evita enumeración de IDs)
     const idorAttemptRes = await fetch(`${baseUrl}/api/accidents/${accidentIdA}`, {
       headers: {
         Authorization: `Bearer ${tokenB}`
       }
     });
 
-    expect(idorAttemptRes.status).toBe(403);
+    expect(idorAttemptRes.status).toBe(404);
     const body = await idorAttemptRes.json() as any;
-    expect(body.error).toBe('Acceso denegado');
+    expect(body.error).toBe('No encontrado');
   });
 
   // Requerimiento 10.4: Enviar datos inválidos al backend
@@ -239,4 +249,3 @@ describe('Pruebas de Integración HTTP y Validación de Requerimientos Obligator
     expect(list.length).toBe(0);
   });
 });
-

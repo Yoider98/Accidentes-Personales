@@ -17,13 +17,12 @@ export class GetAccidentDetailUseCase {
       throw new ValidationException('Identificador de accidente no proporcionado.');
     }
 
-    const accident = await this.accidentRepository.findById(accidentId);
+    // Consulta protegida Anti-IDOR: Si no pertenece al usuario autenticado, responde 404
+    // para evitar la confirmación de existencia y enumeración de registros de terceros.
+    const accident = await this.accidentRepository.findUserAccidentById(authenticatedUserId, accidentId);
     if (!accident) {
       throw new EntityNotFoundException('Accidente', accidentId);
     }
-
-    // Validación Anti-IDOR en el dominio
-    accident.assertOwnership(authenticatedUserId);
 
     return accident.toJSON();
   }

@@ -2,8 +2,8 @@ import { Request, Response, NextFunction } from 'express';
 import { z } from 'zod';
 import { RegisterUserUseCase } from '../../../application/use-cases/register-user.use-case.js';
 import { LoginUserUseCase } from '../../../application/use-cases/login-user.use-case.js';
+import { GetAuthenticatedUserUseCase } from '../../../application/use-cases/get-authenticated-user.use-case.js';
 import { AuthenticatedRequest } from '../middlewares/auth.middleware.js';
-import { UserRepositoryPort } from '../../../application/ports/user.repository.port.js';
 
 const registerSchema = z.object({
   email: z.string().email('Debe ser un correo electrónico válido'),
@@ -20,7 +20,7 @@ export class AuthController {
   constructor(
     private readonly registerUserUseCase: RegisterUserUseCase,
     private readonly loginUserUseCase: LoginUserUseCase,
-    private readonly userRepository: UserRepositoryPort
+    private readonly getAuthenticatedUserUseCase: GetAuthenticatedUserUseCase
   ) {}
 
   public register = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -50,16 +50,8 @@ export class AuthController {
         res.status(401).json({ error: 'No autorizado' });
         return;
       }
-      const user = await this.userRepository.findById(userId);
-      if (!user) {
-        res.status(404).json({ error: 'Usuario no encontrado' });
-        return;
-      }
-      res.status(200).json({
-        id: user.id,
-        email: user.email,
-        fullName: user.fullName
-      });
+      const user = await this.getAuthenticatedUserUseCase.execute(userId);
+      res.status(200).json(user);
     } catch (error) {
       next(error);
     }

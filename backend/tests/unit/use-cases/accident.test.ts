@@ -3,11 +3,12 @@ import { Accident } from '../../../src/domain/entities/accident.entity.js';
 import { User } from '../../../src/domain/entities/user.entity.js';
 import { AccidentRepositoryPort } from '../../../src/application/ports/accident.repository.port.js';
 import { UserRepositoryPort } from '../../../src/application/ports/user.repository.port.js';
+import { IdGeneratorPort } from '../../../src/application/ports/id-generator.port.js';
 import { RegisterAccidentUseCase } from '../../../src/application/use-cases/register-accident.use-case.js';
 import { ListUserAccidentsUseCase } from '../../../src/application/use-cases/list-user-accidents.use-case.js';
 import { GetAccidentDetailUseCase } from '../../../src/application/use-cases/get-accident-detail.use-case.js';
 import { UpdateAccidentStatusUseCase } from '../../../src/application/use-cases/update-accident-status.use-case.js';
-import { UnauthorizedAccidentAccessException, InvalidStatusTransitionException } from '../../../src/domain/exceptions/domain.exception.js';
+import { EntityNotFoundException, InvalidStatusTransitionException } from '../../../src/domain/exceptions/domain.exception.js';
 
 class InMemoryAccidentRepository implements AccidentRepositoryPort {
   private accidents: Map<string, Accident> = new Map();
@@ -62,9 +63,17 @@ class InMemoryUserRepository implements UserRepositoryPort {
   }
 }
 
+class MockIdGenerator implements IdGeneratorPort {
+  private count = 1;
+  generate(): string {
+    return `mock-acc-${this.count++}`;
+  }
+}
+
 describe('Casos de Uso de Accidentes y Blindaje Anti-IDOR', () => {
   let accidentRepo: InMemoryAccidentRepository;
   let userRepo: InMemoryUserRepository;
+  let idGen: MockIdGenerator;
   let registerAccident: RegisterAccidentUseCase;
   let listAccidents: ListUserAccidentsUseCase;
   let getDetail: GetAccidentDetailUseCase;
@@ -76,6 +85,7 @@ describe('Casos de Uso de Accidentes y Blindaje Anti-IDOR', () => {
   beforeEach(async () => {
     accidentRepo = new InMemoryAccidentRepository();
     userRepo = new InMemoryUserRepository();
+    idGen = new MockIdGenerator();
 
     await userRepo.save(new User({
       id: userAId,
@@ -91,7 +101,7 @@ describe('Casos de Uso de Accidentes y Blindaje Anti-IDOR', () => {
       fullName: 'Usuario B'
     }));
 
-    registerAccident = new RegisterAccidentUseCase(accidentRepo, userRepo);
+    registerAccident = new RegisterAccidentUseCase(accidentRepo, userRepo, idGen);
     listAccidents = new ListUserAccidentsUseCase(accidentRepo);
     getDetail = new GetAccidentDetailUseCase(accidentRepo);
     updateStatus = new UpdateAccidentStatusUseCase(accidentRepo);
@@ -151,7 +161,7 @@ describe('Casos de Uso de Accidentes y Blindaje Anti-IDOR', () => {
     expect(accidentsB[0].userId).toBe(userBId);
   });
 
-  it('PRUEBA CRÍTICA DE SEGURIDAD (ANTI-IDOR): Usuario B no debe poder acceder al detalle del accidente de Usuario A', async () => {
+  it('PRUEBA CRÍTICA DE SEGURIDAD (ANTI-IDOR Y NO ENUMERACIÓN): Usuario B debe recibir 404 al intentar consultar el accidente de Usuario A', async () => {
     const accA = await registerAccident.execute(userAId, {
       affectedName: 'Secreto Médico A',
       affectedPhone: '55555',
@@ -165,10 +175,11 @@ describe('Casos de Uso de Accidentes y Blindaje Anti-IDOR', () => {
     const detailA = await getDetail.execute(userAId, accA.id);
     expect(detailA.id).toBe(accA.id);
 
-    // Usuario B intenta consultar el accidente de Usuario A alterando el ID: DEBE SER RECHAZADO
+    // Usuario B intenta consultar el accidente de Usuario A alterando el ID:
+    // Retorna EntityNotFoundException (404) para evitar confirmar que el ID existe (prevención de enumeración)
     await expect(
       getDetail.execute(userBId, accA.id)
-    ).rejects.toThrow(UnauthorizedAccidentAccessException);
+    ).rejects.toThrow(EntityNotFoundException);
   });
 
   it('debe validar la transición de estados en el backend', async () => {
@@ -197,4 +208,3 @@ describe('Casos de Uso de Accidentes y Blindaje Anti-IDOR', () => {
     ).rejects.toThrow(InvalidStatusTransitionException);
   });
 });
-

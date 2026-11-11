@@ -3,8 +3,10 @@ import { User } from '../../../src/domain/entities/user.entity.js';
 import { UserRepositoryPort } from '../../../src/application/ports/user.repository.port.js';
 import { PasswordHasherPort } from '../../../src/application/ports/password-hasher.port.js';
 import { TokenServicePort, TokenPayload } from '../../../src/application/ports/token-service.port.js';
+import { IdGeneratorPort } from '../../../src/application/ports/id-generator.port.js';
 import { RegisterUserUseCase } from '../../../src/application/use-cases/register-user.use-case.js';
 import { LoginUserUseCase } from '../../../src/application/use-cases/login-user.use-case.js';
+import { GetAuthenticatedUserUseCase } from '../../../src/application/use-cases/get-authenticated-user.use-case.js';
 import { UserAlreadyExistsException, InvalidCredentialsException } from '../../../src/domain/exceptions/domain.exception.js';
 
 class InMemoryUserRepository implements UserRepositoryPort {
@@ -47,19 +49,30 @@ class MockTokenService implements TokenServicePort {
   }
 }
 
+class MockIdGenerator implements IdGeneratorPort {
+  private count = 1;
+  generate(): string {
+    return `mock-uuid-${this.count++}`;
+  }
+}
+
 describe('Casos de Uso de Autenticación', () => {
   let userRepo: InMemoryUserRepository;
   let hasher: MockPasswordHasher;
   let tokenService: MockTokenService;
+  let idGenerator: MockIdGenerator;
   let registerUseCase: RegisterUserUseCase;
   let loginUseCase: LoginUserUseCase;
+  let getAuthenticatedUserUseCase: GetAuthenticatedUserUseCase;
 
   beforeEach(() => {
     userRepo = new InMemoryUserRepository();
     hasher = new MockPasswordHasher();
     tokenService = new MockTokenService();
-    registerUseCase = new RegisterUserUseCase(userRepo, hasher, tokenService);
+    idGenerator = new MockIdGenerator();
+    registerUseCase = new RegisterUserUseCase(userRepo, hasher, tokenService, idGenerator);
     loginUseCase = new LoginUserUseCase(userRepo, hasher, tokenService);
+    getAuthenticatedUserUseCase = new GetAuthenticatedUserUseCase(userRepo);
   });
 
   it('debe registrar un usuario correctamente y HASHEAR la contraseña (nunca guardar en texto plano)', async () => {
@@ -77,6 +90,18 @@ describe('Casos de Uso de Autenticación', () => {
     expect(saved).not.toBeNull();
     expect(saved?.passwordHash).toBe('hashed_password123');
     expect(saved?.passwordHash).not.toBe('password123');
+  });
+
+  it('debe permitir consultar el perfil del usuario autenticado a través del caso de uso', async () => {
+    const regOutput = await registerUseCase.execute({
+      fullName: 'María López',
+      email: 'maria@ejemplo.com',
+      password: 'password123'
+    });
+
+    const profile = await getAuthenticatedUserUseCase.execute(regOutput.user.id);
+    expect(profile.fullName).toBe('María López');
+    expect(profile.email).toBe('maria@ejemplo.com');
   });
 
   it('debe impedir registrar dos usuarios con el mismo correo', async () => {
@@ -126,4 +151,3 @@ describe('Casos de Uso de Autenticación', () => {
     ).rejects.toThrow(InvalidCredentialsException);
   });
 });
-

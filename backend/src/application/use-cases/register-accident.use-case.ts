@@ -2,8 +2,8 @@ import { Accident } from '../../domain/entities/accident.entity.js';
 import { AccidentStatus } from '../../domain/value-objects/accident-status.vo.js';
 import { AccidentRepositoryPort } from '../ports/accident.repository.port.js';
 import { UserRepositoryPort } from '../ports/user.repository.port.js';
+import { IdGeneratorPort } from '../ports/id-generator.port.js';
 import { EntityNotFoundException, ValidationException } from '../../domain/exceptions/domain.exception.js';
-import crypto from 'node:crypto';
 
 export interface RegisterAccidentInput {
   affectedName: string;
@@ -17,7 +17,8 @@ export interface RegisterAccidentInput {
 export class RegisterAccidentUseCase {
   constructor(
     private readonly accidentRepository: AccidentRepositoryPort,
-    private readonly userRepository: UserRepositoryPort
+    private readonly userRepository: UserRepositoryPort,
+    private readonly idGenerator: IdGeneratorPort
   ) {}
 
   /**
@@ -40,7 +41,7 @@ export class RegisterAccidentUseCase {
       throw new ValidationException('La fecha del accidente no es válida.');
     }
 
-    const accidentId = crypto.randomUUID();
+    const accidentId = this.idGenerator.generate();
 
     const accident = new Accident({
       id: accidentId,

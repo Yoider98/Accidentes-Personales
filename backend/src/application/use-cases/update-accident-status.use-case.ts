@@ -10,13 +10,10 @@ export class UpdateAccidentStatusUseCase {
       throw new ValidationException('Parámetros incompletos para la actualización de estado.');
     }
 
-    const accident = await this.accidentRepository.findById(accidentId);
+    const accident = await this.accidentRepository.findUserAccidentById(authenticatedUserId, accidentId);
     if (!accident) {
       throw new EntityNotFoundException('Accidente', accidentId);
     }
-
-    // Validación de pertenencia
-    accident.assertOwnership(authenticatedUserId);
 
     // Validación de transición de estado en el modelo de dominio
     const nextStatus = new AccidentStatus(newStatusStr);

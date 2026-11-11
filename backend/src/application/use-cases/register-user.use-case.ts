@@ -2,8 +2,8 @@ import { User } from '../../domain/entities/user.entity.js';
 import { UserRepositoryPort } from '../ports/user.repository.port.js';
 import { PasswordHasherPort } from '../ports/password-hasher.port.js';
 import { TokenServicePort } from '../ports/token-service.port.js';
+import { IdGeneratorPort } from '../ports/id-generator.port.js';
 import { UserAlreadyExistsException, ValidationException } from '../../domain/exceptions/domain.exception.js';
-import crypto from 'node:crypto';
 
 export interface RegisterUserInput {
   email: string;
@@ -24,7 +24,8 @@ export class RegisterUserUseCase {
   constructor(
     private readonly userRepository: UserRepositoryPort,
     private readonly passwordHasher: PasswordHasherPort,
-    private readonly tokenService: TokenServicePort
+    private readonly tokenService: TokenServicePort,
+    private readonly idGenerator: IdGeneratorPort
   ) {}
 
   public async execute(input: RegisterUserInput): Promise<AuthOutput> {
@@ -46,7 +47,7 @@ export class RegisterUserUseCase {
 
     // Hashear contraseña (seguridad obligatoria, nunca en texto plano)
     const passwordHash = await this.passwordHasher.hash(input.password);
-    const userId = crypto.randomUUID();
+    const userId = this.idGenerator.generate();
 
     const user = new User({
       id: userId,
