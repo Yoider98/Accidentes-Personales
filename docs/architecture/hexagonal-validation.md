@@ -58,3 +58,4 @@ El MCP de ASAF ejecuta de forma estática la validación de cumplimiento de capa
 asaf_check_governance
 ```
 **Resultado:** `✓ No se detectaron violaciones arquitectónicas. La estructura cumple las capas.`
+

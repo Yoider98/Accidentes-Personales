@@ -66,3 +66,4 @@
 
 ## 3. Conclusión
 Todas las pruebas unitarias y de integración fueron ejecutadas efectivamente y pasaron al 100%. No se registraron pruebas omitidas (*skipped*) ni simulaciones falsas.
+

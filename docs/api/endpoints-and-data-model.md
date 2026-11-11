@@ -183,3 +183,4 @@
   * `Registrado` $\rightarrow$ `En revisión` (Permitido)
   * `En revisión` $\rightarrow$ `Cerrado` o `Registrado` (Permitido)
   * `Cerrado` $\rightarrow$ Cualquier estado (Rechazado con `400 Bad Request`)
+
