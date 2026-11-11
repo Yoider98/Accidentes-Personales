@@ -6,3 +6,4 @@ export class UuidGenerator implements IdGeneratorPort {
     return crypto.randomUUID();
   }
 }
+

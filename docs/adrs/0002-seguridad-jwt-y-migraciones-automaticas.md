@@ -62,3 +62,4 @@ La sección 2.1 sugería `guilhiz/Node-Boilerplate` (Express no hexagonal) y `er
 1. `guilhiz/Node-Boilerplate` violaba la regla de **Arquitectura Hexagonal obligatoria** (sección 5), mezclando controladores y persistencia.
 2. `eriksonwilliam` implementaba Fastify en lugar de Express (recomendado formalmente en la sección 5).
 3. **Resolución:** Se adoptaron las mejores prácticas de Express + Hexagonal construidas desde cero y supervisadas por el linter estático de ASAF, cumpliendo simultáneamente el framework oficial y el aislamiento total del dominio.
+

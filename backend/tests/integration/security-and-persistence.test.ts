@@ -53,3 +53,4 @@ describe('Pruebas de Validación Obligatorias: 10.6 y 10.7', () => {
     expect(compose).toContain('volumes:');
   });
 });
+

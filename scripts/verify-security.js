@@ -79,3 +79,4 @@ if (hasViolations) {
   console.log('\n✓ VERIFICACIÓN DE SEGURIDAD EXITOSA: El proyecto cumple con la Sección 10.7.');
   process.exit(0);
 }
+
