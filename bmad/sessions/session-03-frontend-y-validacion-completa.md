@@ -29,3 +29,4 @@
 - Compilación de TypeScript en frontend: 0 errores.
 - Compilación de producción con Vite (`vite build`): Exitosa en 10.76s.
 - Verificación de gobernanza ASAF: `✓ No se detectaron violaciones arquitectónicas. La estructura cumple las capas.`
+

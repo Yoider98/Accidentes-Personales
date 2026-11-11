@@ -147,3 +147,4 @@ backend/src/
 
 * **Frecuencia de Notificaciones:** En esta versión MVP no se incluye pasarela de mensajería SMS/Email en tiempo real para eventos de cambio de estado.
 * **Adjuntos Multimedia:** En siguientes versiones se recomienda integrar almacenamiento de objetos (ej. AWS S3 / MinIO) para adjuntar evidencias fotográficas al reporte de accidente.
+
