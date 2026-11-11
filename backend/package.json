@@ -6,6 +6,7 @@
   "main": "dist/infrastructure/http/server.js",
   "scripts": {
     "build": "tsc",
+    "prestart": "npm run build",
     "start": "node dist/infrastructure/http/server.js",
     "dev": "tsx watch src/infrastructure/http/server.ts",
     "test": "vitest run",
