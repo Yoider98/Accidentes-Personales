@@ -41,3 +41,4 @@
   - Puertos de Dominio/Aplicación (`AccidentRepository`, `UserRepository`, `PasswordHasher`, `TokenService`).
   - Casos de uso (`RegisterAccident`, `ListUserAccidents`, `GetAccidentDetail`, `RegisterUser`, `LoginUser`).
   - Pruebas unitarias de dominio con Vitest.
+

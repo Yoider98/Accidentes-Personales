@@ -46,3 +46,4 @@ Proveer una plataforma web intuitiva, confiable y segura que permita a cualquier
 - Pasarelas de pago o indemnización monetaria directa.
 - Notificaciones SMS/WhatsApp externas en esta primera fase.
 - Multi-tenancy complejo.
+

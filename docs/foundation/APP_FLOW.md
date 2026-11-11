@@ -49,3 +49,4 @@ status: approved
 5. Es redirigido al formulario de registro de accidente.
 6. Envía el formulario; el backend verifica la identidad y guarda el registro en PostgreSQL.
 7. Es redirigido a su listado privado, donde ve inmediatamente su accidente con estado `Registrado`.
+

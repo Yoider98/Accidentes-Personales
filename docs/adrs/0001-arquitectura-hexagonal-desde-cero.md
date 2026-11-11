@@ -34,3 +34,4 @@ Se decide **construir la base del backend desde cero con Express + TypeScript**,
 
 ### Mitigaciones / Compromisos:
 - Se requiere configurar manualmente el build de TypeScript, linter y suite de tests (Vitest/Jest).
+

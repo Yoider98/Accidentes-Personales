@@ -22,3 +22,4 @@ status: approved
   - `En revisión`: Fondo ámbar claro / texto marrón oscuro.
   - `Cerrado`: Fondo gris neutro / texto pizarra.
 - **Feedback:** Mensajes de error en campos inválidos con texto comprensible y notificaciones toast de éxito.
+

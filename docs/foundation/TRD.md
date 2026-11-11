@@ -35,3 +35,4 @@ status: approved
 - Prohibición de credenciales en repositorios.
 - Exclusión estricta de `.env` en `.gitignore`.
 - Archivo `.env.example` versionado con valores ficticios.
+

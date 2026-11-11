@@ -61,3 +61,4 @@ Este documento formaliza los requisitos funcionales, técnicos y de seguridad en
 - **CA-07.2:** Lógica de negocio encapsulada en Casos de Uso (Application Layer) y orquestada a través de Puertos (Interfaces).
 - **CA-07.3:** Adaptadores de infraestructura (HTTP Express, Repositorio PostgreSQL) implementan los puertos del núcleo.
 - **CA-07.4:** Cobertura de pruebas unitarias sobre casos de uso y dominio sin dependencias de infraestructura.
+

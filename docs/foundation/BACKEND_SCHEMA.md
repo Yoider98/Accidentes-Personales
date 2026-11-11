@@ -54,3 +54,4 @@ Almacena los reportes de accidentes personales vinculados a cada usuario.
 - `GET /api/accidents` -> Lista únicamente los accidentes donde `user_id = req.user.id`.
 - `GET /api/accidents/:id` -> Obtiene el detalle verificando `id = :id AND user_id = req.user.id`.
 - `PATCH /api/accidents/:id/status` -> Transición de estado validada en backend.
+

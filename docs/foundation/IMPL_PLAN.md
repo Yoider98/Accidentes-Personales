@@ -46,3 +46,4 @@ status: approved
 - [ ] Ejecución y reporte de la suite de pruebas requeridas (sección 10 del enunciado).
 - [ ] Documentación completa en `README.md` (requisitos, instalación, ejecución).
 - [ ] Verificación final con linter de arquitectura y seguridad de ASAF.
+
