@@ -92,3 +92,4 @@ En cumplimiento de la **Sección 6 del enunciado**, el postulante asume la respo
 | **Respuesta Anti-IDOR** | `403 Forbidden` al consultar ID de tercero | Confirmaba existencia del ID ajeno (Enumeración) | Cambio a `404 Not Found` mediante `findUserAccidentById` |
 | **Endpoint /auth/me** | Controlador consultaba `UserRepositoryPort` | Acoplamiento directo de controlador a repositorio | Creación de `GetAuthenticatedUserUseCase` |
 | **Auditoría de Secretos** | Validación manual de variables | Riesgo de filtración en bundles | Creación de `scripts/verify-security.js` y prueba 10.7 |
+
