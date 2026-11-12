@@ -169,10 +169,16 @@ Los accidentes cuentan con tres estados estrictos gestionados por el Value Objec
 
 ---
 
-## 7. Registro de Decisiones de Arquitectura (ADRs)
+## 7. Registro de Decisiones de Arquitectura (ADRs) y Metodología BMAD
 
-* **ADR-0001:** Adopción de Arquitectura Hexagonal pura desde cero con Express + TypeScript frente a plantillas de terceros con dependencias obsoletas.
-* **ADR-0002:** Almacenamiento de tokens JWT (`localStorage` con mitigaciones CSP/Zod), mitigación Anti-IDOR con respuesta 404 (evita enumeración de registros) y ejecución de migraciones automáticas transaccionales al arrancar.
+### Decisiones Arquitectónicas Registradas:
+* **[ADR-0001: Implementación de Arquitectura Hexagonal desde Cero](docs/adrs/0001-arquitectura-hexagonal-desde-cero.md):** Justificación de adopción de arquitectura hexagonal pura frente a plantillas obsoletas (Guilhiz / MVC).
+* **[ADR-0002: Mitigación Anti-IDOR, Almacenamiento de Tokens y Migraciones](docs/adrs/0002-seguridad-jwt-y-migraciones-automaticas.md):** Adopción de respuesta `404 Not Found` para evitar enumeración de identificadores, mitigaciones de seguridad para almacenamiento JWT en SPA y migraciones idempotentes al inicio.
+
+### Metodología Agéntica y Control de Desvíos (BMAD Framework):
+* **[Flujo de Trabajo y Roles BMAD (v2.x)](bmad/methodology-bmad-workflow.md):** Desglose del ciclo de vida agéntico, matriz RACI de agentes especializados y protocolos de verificación técnica.
+* **[Historial de Prompts, Artefactos y Supervisión Humana](bmad/prompts-and-agent-history.md):** Registro de todas las sesiones de trabajo con agentes IA (P-01 a P-06), transcripción de prompts enviados, artefactos producidos, desvíos detectados y correcciones críticas implementadas por el ingeniero.
+* **[Informe Integral de Pruebas y Cobertura (Vitest v8)](docs/evidence/test-execution-report.md):** Registro de 24 pruebas aprobadas al 100%, cumplimiento de la sección 10 del enunciado y desglose de cobertura (100% funciones de casos de uso).
 
 ---
 

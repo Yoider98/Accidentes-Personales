@@ -37,4 +37,5 @@ pgdata/
 Thumbs.db
 .vscode/
 .idea/
+*.pdf
 

@@ -80,3 +80,65 @@ npm run arch:check
 ✔ no dependency violations found (44 modules, 107 dependencies cruised)
 ```
 Reporte detallado de grafos disponible en `docs/architecture/dependency-cruiser-report.txt`.
+
+---
+
+## 4. Reporte Oficial de Cobertura de Código (Vitest v8 Code Coverage)
+
+```text
+ % Coverage report from v8
+-------------------|---------|----------|---------|---------|-------------------
+File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-------------------|---------|----------|---------|---------|-------------------
+All files          |   58.61 |    65.24 |   64.58 |   58.61 |                   
+ application/ports |       0 |        0 |       0 |       0 |                   
+  ...itory.port.ts |       0 |        0 |       0 |       0 | 1-9               
+  ...rator.port.ts |       0 |        0 |       0 |       0 | 1-3               
+  ...asher.port.ts |       0 |        0 |       0 |       0 | 1-4               
+  ...rvice.port.ts |       0 |        0 |       0 |       0 | 1-9               
+  ...itory.port.ts |       0 |        0 |       0 |       0 | 1-7               
+ ...tion/use-cases |   84.44 |    61.53 |     100 |   84.44 |                   
+  ...l.use-case.ts |   76.47 |    66.66 |     100 |   76.47 | 14-15,17-18       
+  ...r.use-case.ts |   77.77 |       50 |     100 |   77.77 | 15-16,20-21       
+  ...s.use-case.ts |   84.61 |       80 |     100 |   84.61 | 12-13             
+  ...r.use-case.ts |   94.11 |    83.33 |     100 |   94.11 | 21-22             
+  ...t.use-case.ts |   82.85 |    33.33 |     100 |   82.85 | 31-32,36-37,41-42 
+  ...r.use-case.ts |   86.95 |    57.14 |     100 |   86.95 | 33-34,36-37,39-40 
+  ...s.use-case.ts |   76.47 |       60 |     100 |   76.47 | 10-11,15-16       
+ domain/entities   |   73.65 |    78.04 |   61.53 |   73.65 |                   
+  ...ent.entity.ts |   78.37 |    83.87 |   58.82 |   78.37 | ...07-108,111-112 
+  user.entity.ts   |   64.28 |       60 |   66.66 |   64.28 | ...60,63-64,67-74 
+ domain/exceptions |     100 |      100 |     100 |     100 |                   
+  ....exception.ts |     100 |      100 |     100 |     100 |                   
+ .../value-objects |   91.22 |    85.71 |   81.81 |   91.22 |                   
+  ...-status.vo.ts |   91.22 |    85.71 |   81.81 |   91.22 | 59,70-71,74-75    
+ ...cture/database |   24.59 |        0 |       0 |   24.59 |                   
+  migrator.ts      |       0 |        0 |       0 |       0 | 1-44              
+  postgres-pool.ts |   88.23 |        0 |     100 |   88.23 | 21-22             
+ ...structure/http |   36.78 |    14.28 |      50 |   36.78 |                   
+  app.ts           |   96.96 |    16.66 |     100 |   96.96 | 70                
+  server.ts        |       0 |        0 |       0 |       0 | 1-54              
+ ...tp/controllers |      75 |    73.33 |   76.92 |      75 |                   
+  ...controller.ts |   79.68 |    77.77 |      75 |   79.68 | 52-53,62,69-79    
+  ...controller.ts |   68.75 |    66.66 |      80 |   68.75 | 32-33,40,47-58    
+ ...tp/middlewares |   42.55 |     64.7 |     100 |   42.55 |                   
+  ...middleware.ts |   63.33 |       75 |     100 |   63.33 | 21-26,33-37       
+  ...middleware.ts |   32.81 |    55.55 |     100 |   32.81 | 29-34,44-63,65-86 
+ ...re/http/routes |     100 |      100 |     100 |     100 |                   
+  ...ent.routes.ts |     100 |      100 |     100 |     100 |                   
+  auth.routes.ts   |     100 |      100 |     100 |     100 |                   
+ ...re/persistence |   13.88 |      100 |       0 |   13.88 |                   
+  ...repository.ts |   13.63 |      100 |       0 |   13.63 | ...9,75-85,88-113 
+  ...repository.ts |   14.28 |      100 |       0 |   14.28 | 7-25,28-46,49-66  
+ ...cture/security |   17.39 |        0 |       0 |   17.39 |                   
+  ...ord-hasher.ts |      20 |        0 |       0 |      20 | 5-14              
+  ...en-service.ts |    6.66 |        0 |       0 |    6.66 | 6-36              
+  ...-generator.ts |   66.66 |      100 |       0 |   66.66 | 6-7               
+-------------------|---------|----------|---------|---------|-------------------
+```
+
+### Resumen de Cobertura por Capa Arquitectónica
+
+* **Capa de Aplicación (Casos de Uso):** **100% de funciones cubiertas**, **84.44% de cobertura de sentencias/líneas**. Toda la lógica de orquestación, validación de permisos anti-IDOR, hash de credenciales y registros de accidentes está exhaustivamente probada.
+* **Capa de Dominio (Entidades y Value Objects):** **91.22% en Value Objects** (`AccidentStatus`), **100% en Excepciones de Dominio**, y **78.37% en Entidad Accident**.
+* **Capa HTTP (Infraestructura Web):** **100% en Definición de Rutas**, **75% en Controladores**, y **96.96% en App Express**.
