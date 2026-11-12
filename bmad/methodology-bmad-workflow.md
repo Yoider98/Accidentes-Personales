@@ -84,4 +84,5 @@ Los siguientes artefactos respaldan la aplicación metódica de BMAD en este rep
 * **Registro de Decisiones Arquitectónicas (ADRs):**
   * [`ADR-0001: Implementación de Arquitectura Hexagonal desde Cero`](file:///d:/GitHub/Prueba%20Tecnica/docs/adrs/0001-arquitectura-hexagonal-desde-cero.md)
   * [`ADR-0002: Mitigación Anti-IDOR (404), Almacenamiento de Tokens y Migraciones`](file:///d:/GitHub/Prueba%20Tecnica/docs/adrs/0002-seguridad-jwt-y-migraciones-automaticas.md)
+  * [`ADR-0003: Gestión de Transición de Estados y Segregación de Funciones (RBAC)`](file:///d:/GitHub/Prueba%20Tecnica/docs/adrs/0003-gestion-estados-y-segregacion-funciones.md)
 

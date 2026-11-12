@@ -174,6 +174,7 @@ Los accidentes cuentan con tres estados estrictos gestionados por el Value Objec
 ### Decisiones Arquitectónicas Registradas:
 * **[ADR-0001: Implementación de Arquitectura Hexagonal desde Cero](docs/adrs/0001-arquitectura-hexagonal-desde-cero.md):** Justificación de adopción de arquitectura hexagonal pura frente a plantillas obsoletas (Guilhiz / MVC).
 * **[ADR-0002: Mitigación Anti-IDOR, Almacenamiento de Tokens y Migraciones](docs/adrs/0002-seguridad-jwt-y-migraciones-automaticas.md):** Adopción de respuesta `404 Not Found` para evitar enumeración de identificadores, mitigaciones de seguridad para almacenamiento JWT en SPA y migraciones idempotentes al inicio.
+* **[ADR-0003: Gestión de Transición de Estados y Segregación de Funciones (RBAC)](docs/adrs/0003-gestion-estados-y-segregacion-funciones.md):** Decisión de restringir transiciones de estado exclusivamente a roles administrativos/analistas para prevenir fraude y garantizar control interno asegurador.
 
 ### Metodología Agéntica y Control de Desvíos (BMAD Framework):
 * **[Flujo de Trabajo y Roles BMAD (v2.x)](bmad/methodology-bmad-workflow.md):** Desglose del ciclo de vida agéntico, matriz RACI de agentes especializados y protocolos de verificación técnica.
