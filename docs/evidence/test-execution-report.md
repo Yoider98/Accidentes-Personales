@@ -25,7 +25,7 @@
 ## 2. Salida Real de Ejecución de la Suite (Vitest Verbatim Log)
 
 ```text
- RUN  v2.1.9 D:/GitHub/Prueba Tecnica/backend
+ RUN  v2.1.9 ./backend
 
  ✓ tests/integration/security-and-persistence.test.ts (4 tests) 17ms
    ✓ 10.7: .gitignore debe bloquear estrictamente archivos .env y credenciales
@@ -79,7 +79,7 @@ npm run arch:check
 
 ✔ no dependency violations found (44 modules, 107 dependencies cruised)
 ```
-Reporte detallado de grafos disponible en `docs/architecture/dependency-cruiser-report.txt`.
+Reporte detallado de grafos disponible en [`docs/architecture/dependency-cruiser-report.txt`](../architecture/dependency-cruiser-report.txt).
 
 ---
 

@@ -66,3 +66,4 @@ Se requiere formalizar la decisión arquitectónica sobre **quién, cómo y desd
   * Añadir el claim `role` en la firma de tokens JWT.
   * Incorporar la ruta protegida `PATCH /api/admin/accidents/:id/status`.
   * Persistir campos de trazabilidad (`reviewed_by`, `reviewed_at`) en la tabla `accidents`.
+

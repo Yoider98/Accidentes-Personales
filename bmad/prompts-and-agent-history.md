@@ -23,7 +23,7 @@ En cumplimiento de la **Sección 6 del enunciado**, el postulante asume la respo
 * **Supervisión Crítica del Ingeniero (Detección de Desvío):**
   *Se rechazó la sugerencia del agente.* La plantilla de Guilhiz tiene arquitectura MVC tradicional fuertemente acoplada a Prisma y Express, sin puertos ni adaptadores, además de dependencias con versiones obsoletas. Reestructurarla implicaba riesgo de código muerto y posibles violaciones de dependencias.
 * **Decisión e Instrucción de Corrección:**
-  Se instruyó generar una base limpia desde cero en Express + TypeScript con dominio 100% puro y puertos explícitos (registrado en `docs/adrs/0001-arquitectura-hexagonal-desde-cero.md`).
+  Se instruyó generar una base limpia desde cero en Express + TypeScript con dominio 100% puro y puertos explícitos (registrado en [ADR-0001](../docs/adrs/0001-arquitectura-hexagonal-desde-cero.md)).
 
 ---
 
@@ -70,7 +70,7 @@ En cumplimiento de la **Sección 6 del enunciado**, el postulante asume la respo
   > "Configurar dependency-cruiser con reglas estrictas que garanticen que src/domain no importe librerías externas ni adaptadores, que src/application no importe infraestructura y que no existan ciclos. Crear script npm run arch:check."
 * **Resultado Obtenido:**
   Configuración en `.dependency-cruiser.cjs` y ejecución exitosa:
-  `✔ no dependency violations found (44 modules, 107 dependencies cruised)`. Reporte exportado a `docs/architecture/dependency-cruiser-report.txt`.
+  `✔ no dependency violations found (44 modules, 107 dependencies cruised)`. Reporte exportado a [dependency-cruiser-report.txt](../docs/architecture/dependency-cruiser-report.txt).
 
 ---
 

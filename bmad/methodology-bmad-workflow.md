@@ -78,11 +78,11 @@ Uno de los postulados clave de BMAD es que **los agentes de IA son propensos a d
 
 Los siguientes artefactos respaldan la aplicación metódica de BMAD en este repositorio:
 
-* **Prompts e Historial de Sesiones:** [`bmad/prompts-and-agent-history.md`](file:///d:/GitHub/Prueba%20Tecnica/bmad/prompts-and-agent-history.md) (Sesiones P-01 a P-06, matrices de desvíos y transcripciones).
-* **Informe Completo de Pruebas y Cobertura:** [`docs/evidence/test-execution-report.md`](file:///d:/GitHub/Prueba%20Tecnica/docs/evidence/test-execution-report.md) (24 pruebas Vitest, matriz Sección 10 del PDF, reporte v8).
-* **Verificación de Dependencias Arquitectónicas:** [`docs/architecture/dependency-cruiser-report.txt`](file:///d:/GitHub/Prueba%20Tecnica/docs/architecture/dependency-cruiser-report.txt) (0 violaciones en 44 módulos).
+* **Prompts e Historial de Sesiones:** [`bmad/prompts-and-agent-history.md`](./prompts-and-agent-history.md) (Sesiones P-01 a P-06, matrices de desvíos y transcripciones).
+* **Informe Completo de Pruebas y Cobertura:** [`docs/evidence/test-execution-report.md`](../docs/evidence/test-execution-report.md) (24 pruebas Vitest, matriz Sección 10 del PDF, reporte v8).
+* **Verificación de Dependencias Arquitectónicas:** [`docs/architecture/dependency-cruiser-report.txt`](../docs/architecture/dependency-cruiser-report.txt) (0 violaciones en 44 módulos).
 * **Registro de Decisiones Arquitectónicas (ADRs):**
-  * [`ADR-0001: Implementación de Arquitectura Hexagonal desde Cero`](file:///d:/GitHub/Prueba%20Tecnica/docs/adrs/0001-arquitectura-hexagonal-desde-cero.md)
-  * [`ADR-0002: Mitigación Anti-IDOR (404), Almacenamiento de Tokens y Migraciones`](file:///d:/GitHub/Prueba%20Tecnica/docs/adrs/0002-seguridad-jwt-y-migraciones-automaticas.md)
-  * [`ADR-0003: Gestión de Transición de Estados y Segregación de Funciones (RBAC)`](file:///d:/GitHub/Prueba%20Tecnica/docs/adrs/0003-gestion-estados-y-segregacion-funciones.md)
+  * [`ADR-0001: Implementación de Arquitectura Hexagonal desde Cero`](../docs/adrs/0001-arquitectura-hexagonal-desde-cero.md)
+  * [`ADR-0002: Mitigación Anti-IDOR (404), Almacenamiento de Tokens y Migraciones`](../docs/adrs/0002-seguridad-jwt-y-migraciones-automaticas.md)
+  * [`ADR-0003: Gestión de Transición de Estados y Segregación de Funciones (RBAC)`](../docs/adrs/0003-gestion-estados-y-segregacion-funciones.md)
 

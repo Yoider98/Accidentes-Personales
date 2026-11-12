@@ -15,7 +15,7 @@ Aplicación web para el registro, consulta y seguimiento de accidentes personale
 * **Autenticación Segura:** Registro e inicio de sesión con tokens JWT, contraseñas hasheadas con Bcrypt (10 salt rounds) y protección con Rate Limiting en endpoints de login/registro.
 * **Registro de Siniestros:** Captura de datos del afectado, tipo de evento, fecha, lugar y narrativa de los hechos. El siniestro se asocia **exclusivamente con la identidad autenticada verificada en el servidor** (prevención de manipulación de payloads).
 * **Panel Privado ("Mis Accidentes"):** Consulta exclusiva de los accidentes pertenecientes al usuario en sesión, con badges de estado (`Registrado`, `En revisión`, `Cerrado`).
-* **Vista de Detalle Blindada (Anti-IDOR):** Búsqueda restringida en base de datos (`WHERE id = $1 AND user_id = $2`) respondiendo `404 Not Found` en caso de no pertenencia para evitar ataques de enumeración (ver `docs/adrs/0002-seguridad-jwt-y-migraciones-automaticas.md`).
+* **Vista de Detalle Blindada (Anti-IDOR):** Búsqueda restringida en base de datos (`WHERE id = $1 AND user_id = $2`) respondiendo `404 Not Found` en caso de no pertenencia para evitar ataques de enumeración (ver [ADR-0002](docs/adrs/0002-seguridad-jwt-y-migraciones-automaticas.md)).
 
 ---
 
@@ -108,7 +108,7 @@ cd backend
 npm test
 ```
 * **Requerimientos cubiertos:** 10.1 (validaciones), 10.2 (auth), 10.3 (Anti-IDOR y no enumeración con 404), 10.4 (datos inválidos), 10.5 (lista vacía), 10.6 (persistencia en volumen pgdata), 10.7 (ausencia de secretos en repo y bundle) y 10.8 (dominio puro).
-* El registro verbatim de la ejecución está guardado en `docs/evidence/test-execution-report.md`.
+* El registro verbatim de la ejecución está guardado en [`docs/evidence/test-execution-report.md`](docs/evidence/test-execution-report.md).
 
 ### B. Creación de Base de Pruebas de Integración (Opcional):
 Para crear la base secundaria `accidentes_test`:
@@ -126,7 +126,7 @@ Salida esperada:
 ```text
 ✔ no dependency violations found (44 modules, 107 dependencies cruised)
 ```
-Reporte completo guardado en `docs/architecture/dependency-cruiser-report.txt`.
+Reporte completo guardado en [`docs/architecture/dependency-cruiser-report.txt`](docs/architecture/dependency-cruiser-report.txt).
 
 ### D. Verificación de Seguridad y Ausencia de Secretos (Requerimiento 10.7):
 ```bash
